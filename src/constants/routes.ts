@@ -3,9 +3,11 @@
  */
 
 export const ROUTES = {
+    welcome: '/',
     login: '/login',
-    dashboard: '/dashboard',
-    inventory: '/invetory'
+    register: '/register',
+    notes: '/notes'
+
 } as const;
 
 export type RouteType = typeof ROUTES[keyof typeof ROUTES];
