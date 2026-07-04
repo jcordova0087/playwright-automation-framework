@@ -60,5 +60,22 @@ export abstract class BasePage {
         await this.page.screenshot({path: `./screenshots/${screenshotName}-${Date.now()}.png`});
     }
 
+    /**
+     * Click on a specific element after ensuring it is visible and actionable
+     * @param locator The Playwright locator representing the element.
+     */
+    public async click(locator: Locator): Promise<void> {
+        await locator.click();
+    }
+
+    /**
+     * Retrieves the inner text of a specific element.
+     * @param locator The Playwright locator representing the element.
+     * @returns A primise that resolves to the element's text content
+     */
+    public async getElementText(locator: Locator): Promise<string> {
+        return await locator.innerText();
+    }
+    
 }
 
