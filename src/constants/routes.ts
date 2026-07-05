@@ -3,7 +3,7 @@
  */
 
 export const ROUTES = {
-    welcome: '/',
+    welcome: '',
     login: '/login',
     register: '/register',
     notes: '/notes'

@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { Environment } from '../../config';
+import { Configuration, Environment } from '../../config';
 
 /**
  * Abstract base class representing the foundational contract for all page objects.
@@ -48,7 +48,7 @@ export abstract class BasePage {
      * Retrieves the exact URL currently loaded in the browser context.
      * @returns  the full URl string.
      */
-    public async getCurrentUtl(): Promise<string> {
+    public async getCurrentUrl(): Promise<string> {
         return this.page.url();
     }
 
@@ -56,8 +56,8 @@ export abstract class BasePage {
      * Captures a screenshoot of the current viewport view for reporting purposes.
      * @param screenshotName 
      */
-    public async takeScreenshoot(screenshotName: string): Promise<void> {
-        await this.page.screenshot({path: `./screenshots/${screenshotName}-${Date.now()}.png`});
+    public async takeScreenshot(screenshotName: string): Promise<void> {
+        await this.page.screenshot({path: `${Configuration.SCREENSHOT.DIRECTORY}/${screenshotName}-${Date.now()}.png`});
     }
 
     /**
@@ -65,6 +65,7 @@ export abstract class BasePage {
      * @param locator The Playwright locator representing the element.
      */
     public async click(locator: Locator): Promise<void> {
+        await locator.waitFor({state:"visible", timeout: Configuration.TIMEOUTS.DEFAULT });
         await locator.click();
     }
 
@@ -74,8 +75,39 @@ export abstract class BasePage {
      * @returns A primise that resolves to the element's text content
      */
     public async getElementText(locator: Locator): Promise<string> {
-        return await locator.innerText();
+        await locator.waitFor({state: "visible", timeout: Configuration.TIMEOUTS.DEFAULT });
+        return locator.innerText();
     }
-    
+
+    /**
+     * Check if a given locator is visible in the current page.
+     * 
+     * @param locator The palywright locator instance to check.
+     * @returns Promise <boolean> - True if the element is visible, false otherwise.
+     */
+    public async isElementVisible(locator: Locator): Promise<boolean> {
+        return await locator.isVisible();
+
+    }
+
+    /**
+     * Wait for specific element to achieve teh visible stats in the DOM.
+     * 
+     * @param locator The Playwright Locator isntace to wait for.
+     * @param timeout Optional timeout in milliseconds (default: 5000).
+     */
+    public async waitForVisible(locator: Locator, timeout: number = Configuration.TIMEOUTS.DEFAULT): Promise<void> {
+        await locator.waitFor({state: 'visible', timeout });
+
+    }
+
+    /**
+     * Check if a specific element is enabled and interactive.
+     * @param locator The Playwright locator instance to check.
+     * @returns Promise<boolean> - True if the element is enabled, false otherwise.
+     */
+    public async isElementEnabled(locator: Locator): Promise<boolean> {
+         return locator.isEnabled();
+    }
 }
 

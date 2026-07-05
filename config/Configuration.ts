@@ -3,20 +3,22 @@
  * contains non-environment-specific execution rules and timeouts.
  */
 
+const SECOND = 1000;
+
 export class Configuration {
     public static readonly TIMEOUTS = {
-        short: 5000,
-        default: 10000,
-        long: 30000,
+        SHORT: 5 * SECOND,
+        DEFAULT: 10 * SECOND,
+        LONG: 30 * SECOND,
     } as const;
 
     public static readonly RETRIES = {
-        ci: 2,
-        local: 0,
+        CI: 2,
+        LOCAL: 0,
     } as const;
 
     public static readonly SCREENSHOT = {
-        onFailureOnly: true,
-        format: 'png',
+        ONFAILUREONLY: true,
+        DIRECTORY: './screenshots',
     } as const;
 }
