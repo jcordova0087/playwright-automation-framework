@@ -19,7 +19,7 @@ jobs:
       uses: actions/workspace-node@v4
       with:
         node-version: lts/*
-        cache: 'npm' # Optimiza el tiempo de instalación cacheando node_modules
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm ci
@@ -29,7 +29,7 @@ jobs:
 
     - name: Run Playwright tests
       env:
-        # Inyectamos de forma segura las variables de entorno obligatorias que diseñamos
+        
         BASE_URL: ${{ secrets.BASE_URL }}
         API_URL: ${{ secrets.API_URL }}
         USERNAME: ${{ secrets.USERNAME }}
@@ -37,9 +37,9 @@ jobs:
       run: npx playwright test
 
     - name: Upload Test Report Artifact
-      html: always
+      html: always()
       uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }} # Se ejecuta aunque fallen las pruebas para no perder el reporte
+      if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
