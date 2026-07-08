@@ -109,5 +109,15 @@ export abstract class BasePage {
     public async isElementEnabled(locator: Locator): Promise<boolean> {
          return locator.isEnabled();
     }
+
+    /**
+     * Clears the current text and fills teh specified text
+     * @param locator The playwright locator instance to check.
+     * @param text text to enter in the locator
+     */
+    public async fill(locator: Locator, text: string): Promise<void> {
+        await locator.waitFor({ state: 'visible', timeout: Configuration.TIMEOUTS.DEFAULT});
+        await locator.fill(text);
+    }
 }
 

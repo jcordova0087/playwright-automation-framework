@@ -11,9 +11,9 @@ export class Environment {
 
     public static readonly apiUrl = Environment.getRequired('API_URL');
 
-    public static readonly username = Environment.getRequired('USERNAME');
+    public static readonly username = Environment.getRequired('APP_USERNAME');
 
-    public static readonly password = Environment.getRequired('PASSWORD');
+    public static readonly password = Environment.getRequired('APP_PASSWORD');
 
 
     /**

@@ -6,7 +6,7 @@ export const ROUTES = {
     welcome: '',
     login: '/login',
     register: '/register',
-    notes: '/notes'
+    notes: ''
 
 } as const;
 
