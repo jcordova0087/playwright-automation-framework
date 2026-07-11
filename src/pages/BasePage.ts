@@ -116,8 +116,19 @@ export abstract class BasePage {
      * @param text text to enter in the locator
      */
     public async fill(locator: Locator, text: string): Promise<void> {
-        await locator.waitFor({ state: 'visible', timeout: Configuration.TIMEOUTS.DEFAULT});
-        await locator.fill(text);
+        //await locator.waitFor({ state: 'visible', timeout: Configuration.TIMEOUTS.DEFAULT});
+        //await locator.fill(text);
+
+    await this.page.screenshot({
+        path: 'before-fill.png'
+    });
+
+    await locator.waitFor({
+        state: 'visible',
+        timeout: 30000
+    });
+
+    await locator.fill(text);
     }
 }
 
