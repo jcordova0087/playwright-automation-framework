@@ -118,5 +118,7 @@ export abstract class BasePage {
     public async fill(locator: Locator, text: string): Promise<void> {
         await locator.waitFor({ state: 'visible', timeout: Configuration.TIMEOUTS.DEFAULT});
         await locator.fill(text)
+    }
+    
 }
 
