@@ -29,11 +29,10 @@ jobs:
 
     - name: Run Playwright tests
       env:
-        
         BASE_URL: ${{ secrets.BASE_URL }}
         API_URL: ${{ secrets.API_URL }}
-        USERNAME: ${{ secrets.APP_USERNAME }}
-        PASSWORD: ${{ secrets.APP_PASSWORD }}
+        APP_USERNAME: ${{ secrets.APP_USERNAME }}
+        APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
       run: npx playwright test
 
     - name: Upload Test Report Artifact
